@@ -111,10 +111,6 @@ nodeSpacing
     .FILL x0040
 startSting
     .STRINGZ "Would you like to play a guessing game? "
-guessRight
-    .STRINGZ  "Yay! I am a smart computer. Would you like to play again? "
-guessWrong
-    .STRINGZ "Oh well. Please enter the animal you were thinking of: "
 minusY
     .FILL x-79
 minusN
@@ -209,8 +205,67 @@ ANSWER
     PUTS
     LEA R0, postAnswer
     PUTS
+
+USRIN_A
+    GETC
+    LD R2, minusY
+    ADD R2, R2, R0
+    BRz SAID_YES_A
+    LD R2, minusN
+    ADD R2, R2, R0
+    BRz SAID_NO_A
+    BRnzp USRIN_A
+
+SAID_YES_A
+    OUT
+    AND R0, R0, x0
+    ADD R0, R0, xA
+    OUT
+    LEA R0, guessRight
+    PUTS
+USRIN_N ; n for new game
+    GETC
+    LD R2, minusY
+    ADD R2, R2, R0
+    BRz NEW_GAME
+    LD R2, minusN
+    ADD R2, R2, R0
+    BRnzp SAY_BYE
+
+NEW_GAME
+    OUT
+    AND R0, R0, x0
+    ADD R0, R0, xA
+    OUT
+    BRnzp START_GUESSING
+
+SAY_BYE
+    OUT
+    AND R0, R0, x0
+    ADD R0, R0, xA
+    OUT
+    LEA R0, exitString
+    PUTS
     BRnzp END
 
+SAID_NO_A
+    OUT
+    AND R0, R0, x0
+    ADD R0, R0, xA
+    OUT
+    LEA R0, guessWrong
+    PUTS
+    BRnzp END
+
+
+; ##### DATA BLOCK #####
+guessRight
+    .STRINGZ  "Yay! I am a smart computer. Would you like to play again? "
+guessWrong
+    .STRINGZ "Oh well. What was the animal you were thinking of: "
+exitString
+    .STRINGZ "Okay, bye!"
+; ##### END DATA BLOCK
 
 
 ; Slots for variables
