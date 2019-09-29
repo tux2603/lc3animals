@@ -1,4 +1,4 @@
 file lc3os.obj
 file animals.obj
 continue
-# dump x4000 x5000
+dump x3400 x5000
