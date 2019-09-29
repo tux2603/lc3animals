@@ -7,6 +7,10 @@
 ; BYTE2: Pointer to node for no answer
 ; BYTE3-63: Zero terminated string for question/answer (max length 60)
 ;
+;
+; TODO: Enforce maximum question size (Currently, questions/animal names more than 58 characters long will break the binary tree structure)
+; TODO: Make it so the user can choose whether the new animal will be yes or no answer for the new question
+
     .ORIG x3000
 
     ; #########################################################################
